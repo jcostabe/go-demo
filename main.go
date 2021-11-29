@@ -12,6 +12,8 @@ import (
 	"github.com/gorilla/mux"
 )
 
+var version = "2.0"
+
 type Book struct {
 	ID     string  `json: "id"`
 	Isbn   string  `json: "isbn"`
@@ -95,12 +97,20 @@ func healthCheckHandler(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, `{"alive": true}`)
 }
 
-func getInfo(w http.ResponseWriter, r *http.Request) {
+func getHostInfo(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 
 	host, _ := os.Hostname()
 	io.WriteString(w, host)
+
+}
+
+func getVersion(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+
+	io.WriteString(w, version)
 
 }
 
@@ -114,7 +124,9 @@ func main() {
 
 	// Route handlers / Endpoints
 	r.HandleFunc("/isAlive", healthCheckHandler).Methods("GET")
-	r.HandleFunc("/info", getInfo).Methods("GET")
+	r.HandleFunc("/info", getHostInfo).Methods("GET")
+	r.HandleFunc("/version", getVersion).Methods("GET")
+
 
 	r.HandleFunc("/api/books", getBooks).Methods("GET")
 	r.HandleFunc("/api/books/{id}", getBook).Methods("GET")

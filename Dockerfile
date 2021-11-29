@@ -32,6 +32,4 @@ COPY --from=builder /go/src/github.com/jcostabe/go-demo/main /go/src/github.com/
 
 USER gouser:gouser
 
-EXPOSE 8080
-
 ENTRYPOINT [ "/go/src/github.com/jcostabe/go-demo/main" ]  
