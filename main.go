@@ -12,7 +12,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var version = "2.0"
+var version = "1.0"
 
 type Book struct {
 	ID     string  `json: "id"`

@@ -1,4 +1,6 @@
-FROM golang:1.15.3-alpine3.12 AS builder
+FROM golang:1.19.0-alpine3.16 AS builder
+
+ARG GO111MODULE=auto
 
 RUN apk update \
      && apk add --no-cache git
